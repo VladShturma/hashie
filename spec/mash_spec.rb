@@ -25,17 +25,25 @@ describe Hashie::Mash do
     expect(@mash.somemethod).to eq(nil)
   end
 
-  it "check name? true", :focus => true do
+  it "check name? true" do
     @mash.somename
     expect(@mash.somename?).to eq(true)
   end
 
-=begin
-  it "check name=" do
-    @mash.name = "My Mash"
-    expect(@mash.name).to eq("My Mash")    
-  end
 
+  it "check name=", :focus => true do
+    #@mash.name = "My Mash"
+    #expect(@mash.name).to eq("My Mash")
+    expect(@mash.name?).to eq(false)
+    @mash.name
+    expect(@mash.name).to eq(nil)
+    @mash.name =  "My Mash"
+    expect(@mash.name).to eq("My Mash")
+    expect(@mash.name?).to eq(true)
+    puts @mash.inspect
+
+  end
+=begin
   it "check?" do
     expect(@mash.method?("askd?")).to eq(true)
     expect(@mash.method?("askd?asd")).to eq(false)
