@@ -1,6 +1,10 @@
 module Hashie
   class Mash
 
+    def inspect
+      "<Hashie::Mash" << @added_methods << ">"
+    end
+
     def method_question_defined?(method_name)
       str = method_name.to_s.delete "?"
       if self.class.instance_methods.include?(str.to_sym)
@@ -17,6 +21,8 @@ module Hashie
           args.join(" ")
         end
       end
+      @added_methods ||= '' 
+      @added_methods << ' ' << str << '="' << args.join(" ") << '"'
     end
 
     def method_missing(method_name, *args)
