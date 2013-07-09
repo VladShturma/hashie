@@ -1,22 +1,44 @@
 module Hashie
   class Mash
-    
+
     def which_method(str,reg_exp)
       position = reg_exp=~str
       position != nil
     end
 
-    def create_method(method_name, is_question)
+    def method_question_defined?(method_name)
+      str = method_name.to_s.delete "?"
+      if self.class.instance_methods.include?(str.to_sym)
+        true
+      else
+        false
+      end
+    end
+
+    def create_method(method_name)
       self.class.class_eval do
         define_method(method_name) do
-          is_question ? false : nil
+          nil
         end
       end
       self.send(method_name)
     end
 
+    def method_missing(method_name, *args)
+      if which_method(method_name.to_s, /\?$/)
+        method_question_defined?(method_name)
+      else
+        create_method(method_name)
+      end
+    end
+
+=begin
     def create_method_equal(method_name, *args)
-      "My Mash"
+      self.class.class_eval do
+        define_method(method_name) do
+          args.join(' ')
+        end
+      end
     end
 
     def method_missing(method_name, *args)
@@ -27,6 +49,7 @@ module Hashie
           create_method(method_name, is_question)
       end
     end
-  
+=end
+
   end
 end

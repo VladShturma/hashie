@@ -25,6 +25,12 @@ describe Hashie::Mash do
     expect(@mash.somemethod).to eq(nil)
   end
 
+  it "check name? true", :focus => true do
+    @mash.somename
+    expect(@mash.somename?).to eq(true)
+  end
+
+=begin
   it "check name=" do
     @mash.name = "My Mash"
     expect(@mash.name).to eq("My Mash")    
@@ -39,6 +45,7 @@ describe Hashie::Mash do
     expect(@mash.equal_method("askd=")).to eq(true)
     expect(@mash.equal_method("askd=asd")).to eq(false)
   end
+=end
 
   after(:each) do
     @mash = nil
