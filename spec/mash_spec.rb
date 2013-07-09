@@ -12,24 +12,25 @@ end
 =end
 
 describe Hashie::Mash do
-  def setup
-  	@mash = Hashie::Mash.new
+  before(:each) do
+    @mash = Hashie::Mash.new
   end
 
-	it "check name?" do
-		setup
-		expect(@mash.name?).to eq(false)
-	end
+  it "check name?" do
+    expect(@mash.name?).to eq(false)
+  end
 
-	it "check names" do
-		setup
-		expect(@mash.name).to eq(nil)
-		#expect(@mash.somemethod).to eq(nil)
-	end
+  it "check names" do
+    expect(@mash.name).to eq(nil)
+    expect(@mash.somemethod).to eq(nil)
+  end
 
-	it "check name=" do
-		setup
-		@mash.name = "My Mash"
-		expect(@mash.name).to eq("My Mash")
+  #it "check name=" do
+  #  @mash.name = "My Mash"
+  #  expect(@mash.name).to eq("My Mash")    
+  #end
+
+  after(:each) do
+    @mash = nil
   end
 end
