@@ -1,5 +1,8 @@
 ## Hashie
 
+## Current status
+[![Build Status](https://travis-ci.org/VladShturma/hashie.png?branch=master)](https://travis-ci.org/VladShturma/hashie)
+
 TODO: Write a gem description
 
 ## Installation
