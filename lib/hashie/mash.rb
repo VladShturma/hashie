@@ -1,30 +1,32 @@
 module Hashie
-	class Mash
-		
-		def name?
-			false
-		end
+  class Mash
+    
+    def which_method(str,reg_exp)
+      position = reg_exp=~str
+      position != nil
+    end
 
-		#def name=(str)
-		#	@name = str
-		#  nil
-		#end
-		def question_method?(str)
-			position = /\?$/=~str
-			position != nil ? true: false 
-		end
-		
-		def method_missing(method_name, *args)
-			method_name_str = method_name.to_s
-			method_name_str =~ /\?$/
-
+    def create_method(method_name, is_question)
       self.class.class_eval do
-      	define_method(method_name) do
-      		nil
-      	end
+        define_method(method_name) do
+          is_question ? false : nil
+        end
       end
       self.send(method_name)
-		end
-	
-	end
+    end
+
+    def create_method_equal(method_name, *args)
+      "My Mash"
+    end
+
+    def method_missing(method_name, *args)
+      if which_method(method_name.to_s, /\=$/)   
+        create_method_equal(method_name, *args)
+      else
+        is_question =  which_method(method_name.to_s, /\?$/)
+          create_method(method_name, is_question)
+      end
+    end
+  
+  end
 end

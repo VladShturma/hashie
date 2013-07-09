@@ -25,10 +25,20 @@ describe Hashie::Mash do
     expect(@mash.somemethod).to eq(nil)
   end
 
-  #it "check name=" do
-  #  @mash.name = "My Mash"
-  #  expect(@mash.name).to eq("My Mash")    
-  #end
+  it "check name=" do
+    @mash.name = "My Mash"
+    expect(@mash.name).to eq("My Mash")    
+  end
+
+  it "check?" do
+    expect(@mash.method?("askd?")).to eq(true)
+    expect(@mash.method?("askd?asd")).to eq(false)
+  end
+
+  it "check=" do
+    expect(@mash.equal_method("askd=")).to eq(true)
+    expect(@mash.equal_method("askd=asd")).to eq(false)
+  end
 
   after(:each) do
     @mash = nil
