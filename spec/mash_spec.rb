@@ -21,8 +21,15 @@ describe Hashie::Mash do
 		expect(@mash.name?).to eq(false)
 	end
 
-	it "check name" do
+	it "check names" do
 		setup
 		expect(@mash.name).to eq(nil)
+		#expect(@mash.somemethod).to eq(nil)
 	end
+
+	it "check name=" do
+		setup
+		@mash.name = "My Mash"
+		expect(@mash.name).to eq("My Mash")
+  end
 end
