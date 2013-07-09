@@ -1,4 +1,4 @@
-# Hashie
+## Hashie
 
 TODO: Write a gem description
 
