@@ -2,6 +2,7 @@
 
 ## Current status
 [![Build Status](https://travis-ci.org/VladShturma/hashie.png?branch=master)](https://travis-ci.org/VladShturma/hashie)
+[![Coverage Status](https://coveralls.io/repos/VladShturma/hashie/badge.png?branch=master)](https://coveralls.io/r/VladShturma/hashie?branch=master)
 
 TODO: Write a gem description
 
