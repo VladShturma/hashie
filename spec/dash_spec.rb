@@ -33,6 +33,8 @@ describe Hashie::Dash do
 
   it "checks that property can't be nil" do
     expect{@p.age = nil}.to raise_error(ArgumentError, 'The property "age" is required for this Dash.') 
+    #expect(@p.age = nil).to eq("xxx") 
+    #expect{@p.age = nil}.to raise_error NoMethodError
   end
 
   

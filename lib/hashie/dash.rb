@@ -7,8 +7,14 @@ module Hashie
     @@properties = Hash.new
     @@requires = Hash.new
 
-    def initialize(arg)
-      arg.each { |key, value| @@properties[key] = value }
+    def initialize(arg = nil)
+      #raise ArgumentError, "The property \"#{name}\" is required for this Dash."
+      if arg != nil
+        arg.each do |key, value|
+          if @@requires[key] !=   
+          @@properties[key] = value
+        end
+      end
     end
     
     def self.property(property_name, option = nil)
@@ -17,6 +23,8 @@ module Hashie
         option.each do |key, value| 
           if key == :default
             @@properties[property_name] = value
+          elsif key == :required
+            @@requires[property_name] = true
           end
         end
       end
@@ -25,19 +33,25 @@ module Hashie
 
     def [](property_name)
       if @@properties.keys.include?(property_name)
-        #return @@defaults[property_name] if @@defaults[property_name]!=nil
         @@properties[property_name]
       else
         raise NoMethodError
       end
     end
 
+    def set_property(prop_name, *args)
+      name = get_method_name(prop_name)
+      if @@requires[name] != nil && args[0] == nil
+        raise ArgumentError, "The property \"#{name}\" is required for this Dash."
+      end
+      @@properties[name] = args.join(" ")
+    end
+
     def method_missing(method_name, *args)
       name_str = method_name.to_s
       case name_str[-1]
         when "="
-          name = get_method_name(name_str)
-          @@properties[name] = args.join(" ")
+          s = set_property(name_str, *args)
         else
           self.[](method_name)
       end      
