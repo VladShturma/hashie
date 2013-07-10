@@ -5,23 +5,27 @@ module Hashie
     include CommonMethods
 
     @@properties = Hash.new
+    @@requires = Hash.new
 
+    def initialize(arg)
+      arg.each { |key, value| @@properties[key] = value }
+    end
+    
     def self.property(property_name, option = nil)
-      #@@properties[property_name] = nil
+      @@properties[property_name] = nil
+      if option != nil
+        option.each do |key, value| 
+          if key == :default
+            @@properties[property_name] = value
+          end
+        end
+      end
 
-      @@properties[property_name] = {property_name => nil, option => 2}
-      puts
-      puts
-      puts @@properties
-      puts
-      puts
-
-      #raise @@properties[property_name].inspect
-      #raise option.inspect
     end
 
     def [](property_name)
       if @@properties.keys.include?(property_name)
+        #return @@defaults[property_name] if @@defaults[property_name]!=nil
         @@properties[property_name]
       else
         raise NoMethodError

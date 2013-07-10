@@ -2,8 +2,7 @@ require "spec_helper"
 
 describe Hashie::Dash do
   before(:each) do
-    #@dash = Hashie::Dash.new
-    @p = Person.new
+    @p = Person.new(:age => 22)
   end
 
   it "checks that property is undefined" do
@@ -24,9 +23,17 @@ describe Hashie::Dash do
     expect(@p.email).to eq("a@ru.ru")
   end
 
-  it "check property default value", :focus => true do
-  #  expect(@p.occupation).to eq("Rubyist")
-  expect(true).to eq(true)
+  it "check property default value" do
+    expect(@p.occupation).to eq("Rubyist")
   end
 
+  it "checks that property is set" do
+    expect(@p.age).to eq(22)
+  end
+
+  it "checks that property can't be nil" do
+    expect{@p.age = nil}.to raise_error(ArgumentError, 'The property "age" is required for this Dash.') 
+  end
+
+  
 end

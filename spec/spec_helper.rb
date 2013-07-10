@@ -7,6 +7,6 @@ Coveralls.wear!
 require "hashie"
 require "person"
 
-RSpec.configure do |c|
-  c.filter_run :focus => true
-end
+#RSpec.configure do |c|
+#  c.filter_run :focus => true
+#end
