@@ -33,8 +33,14 @@ describe Hashie::Dash do
 
   it "checks that property can't be nil" do
     expect{@p.age = nil}.to raise_error(ArgumentError, 'The property "age" is required for this Dash.') 
-    #expect(@p.age = nil).to eq("xxx") 
-    #expect{@p.age = nil}.to raise_error NoMethodError
+  end
+
+  it "checks that can't initialize without required properties" do    
+    expect{x = Person.new}.to raise_error(ArgumentError, 'The property "age" is required for this Dash.') 
+  end
+
+  it "checks that can't initialize without required properties 2" do    
+    expect{x = Person.new(:name => "Bob")}.to raise_error(ArgumentError, 'The property "age" is required for this Dash.') 
   end
 
   
