@@ -1,5 +1,5 @@
 require "spec_helper"
-require "hashie/mash"
+
 # in spec/calculator_spec.rb
 =begin
 describe Calculator do
