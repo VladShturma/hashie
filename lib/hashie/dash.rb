@@ -2,8 +2,18 @@ require "hashie/common_methods"
 
 module Hashie
   class Dash
-    include CommonMethods
+   # include CommonMethods
 
+    @@properties = Hash.new
+
+    def self.property(property_name)
+      @@properties[property_name] = nil
+    end
+
+    def [](property_name)
+      @@properties.keys.include?(property_name) ? @@properties[property_name] : "NoMethodError"
+    end
+=begin
     @@properties = Hash.new
 
     def self.property(property_name)
@@ -31,6 +41,6 @@ module Hashie
           properties[key]
       end 
     end
-
+=end
   end
 end

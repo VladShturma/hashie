@@ -8,11 +8,13 @@ module Hashie
       @hash_store = Hash.new
     end
 
+    private
     def method_finded?(method_name)
       res = @hash_store[method_name]
       res != nil
     end
 
+    public
     def method_missing(method_name, *args)
       name_str = method_name.to_s
       case name_str[-1]

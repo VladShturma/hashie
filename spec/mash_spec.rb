@@ -5,34 +5,34 @@ describe Hashie::Mash do
     @mash = Hashie::Mash.new
   end
 
-  it "test 1" do
+  it "checks that methods is not known" do
     expect(@mash.name?).to eq(false)
+  end
+
+  it "checks that method is without value" do
     @mash.name
     expect(@mash.name).to eq(nil)
     expect(@mash.name?).to eq(false)
+  end
+
+  it "checks that method has a value" do
     @mash.name = "My Mash"
     expect(@mash.name?).to eq(true)
     expect(@mash.name).to eq("My Mash")
-    #expect(@mash.inspect).to eq('<Hashie::Mash name="My Mash">')
   end
 
-  it "test 2" do
+  it "checks multi-level assignment" do
     @mash.author!.name = "Michael Bleigh"
-    #expect(@mash.author).to eq('<Hashie::Mash name="Michael Bleigh">')
   end
 
-  it "test 3" do
+  it "checks multi-level testing" do
     expect(@mash.author_.name?).to eq(false)
-    #expect(@mash.inspect).to eq('<Hashie::Mash>')
   end
 
-  it "test 4" do
+  it "checks multi-level testing for existing method" do
     expect(@mash.author_.name?).to eq(false)
     @mash.author!.name = "Albert"
     expect(@mash.author_.name?).to eq(true)
   end
 
-  after(:each) do
-    @mash = nil
-  end
 end
