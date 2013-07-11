@@ -1,12 +1,19 @@
 require "bundler/setup"
 Bundler.require
 
-require 'coveralls'
-Coveralls.wear!
+# ($:).inspect
 
-require "hashie"
-require "person"
+if ENV['TRAVIS']
+  require 'coveralls'
+  Coveralls.wear!
+end
 
-#RSpec.configure do |c|
+spec_path = File.expand_path("..", __FILE__)
+Dir["#{spec_path}/fixtures/*.rb"].each do |f|
+  require f
+end
+
+RSpec.configure do |c|
 #  c.filter_run :focus => true
-#end
+  c.formatter = 'documentation'
+end

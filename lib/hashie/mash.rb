@@ -1,4 +1,3 @@
-require "hashie/common_methods"
 
 module Hashie
   class Mash

@@ -1,4 +1,3 @@
-require "hashie/common_methods"
 
 module Hashie
   class Dash
@@ -11,11 +10,9 @@ module Hashie
       if is_not_all_requires_are_set?(arg)
         push_argument_error_require(@@requires.keys[0])
       end
-      arg.each do |key, value|
-        @@properties[key] = value
-      end
+      arg.each { |key, value| @@properties[key] = value }
     end
-    
+
     def self.property(property_name, option = nil)
       @@properties[property_name] = nil
       if option != nil
@@ -43,13 +40,8 @@ module Hashie
 
     private
     def self.set_property_option(property_name, option)
-      option.each do |key, value| 
-        if key == :default
-          @@properties[property_name] = value
-        elsif key == :required
-          @@requires[property_name] = true
-        end
-      end
+      @@properties[property_name] = option[:default]
+      @@requires[property_name] = true if option.has_key?(:required)
     end
 
     def is_not_all_requires_are_set?(arg)
@@ -67,6 +59,6 @@ module Hashie
       end
       @@properties[name] = args.join(" ")
     end
-    
+
   end
 end

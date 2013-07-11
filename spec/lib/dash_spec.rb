@@ -1,7 +1,8 @@
 require "spec_helper"
 
 describe Hashie::Dash do
-  before(:each) do
+
+  before(:all) do
     @p = Person.new(:age => 22)
   end
 
@@ -32,16 +33,15 @@ describe Hashie::Dash do
   end
 
   it "checks that property can't be nil" do
-    expect{@p.age = nil}.to raise_error(ArgumentError, 'The property "age" is required for this Dash.') 
+    expect{@p.age = nil}.to raise_error(ArgumentError, 'The property "age" is required for this Dash.')
   end
 
-  it "checks that can't initialize without required properties" do    
-    expect{x = Person.new}.to raise_error(ArgumentError, 'The property "age" is required for this Dash.') 
+  it "checks that can't initialize without required properties" do
+    expect{x = Person.new}.to raise_error(ArgumentError, 'The property "age" is required for this Dash.')
   end
 
-  it "checks that can't initialize without required properties 2" do    
-    expect{x = Person.new(:name => "Bob")}.to raise_error(ArgumentError, 'The property "age" is required for this Dash.') 
+  it "checks that can't initialize without required properties 2" do
+    expect{x = Person.new(:name => "Bob")}.to raise_error(ArgumentError, 'The property "age" is required for this Dash.')
   end
 
-  
 end
