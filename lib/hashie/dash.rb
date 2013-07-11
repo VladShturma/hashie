@@ -3,20 +3,42 @@ module Hashie
   class Dash
     #include CommonMethods
 
-    def initialize
+    def initialize(arg = {})
       #tmp = self.class.instance_variable_get :@properties
       #raise "XXXXXX" << tmp.inspect
       @props ||= {}
+      @reqs ||= {}
       @props = self.class.instance_variable_get :@properties
+      @reqs = self.class.instance_variable_get :@requires
+      generate_error_argument_require if is_not_all_requires_are_set?(arg)
+      arg.each { |key, value| @props[key] = value }
     end
 
-    def self.property(arg, option = nil)
+    def self.property(arg, option = {})
       @properties ||= {}
+      @requires ||= {}
       @properties[arg] = nil
+      if option.key?(:required)
+        @requires[arg] = true
+      elsif option.key?(:default)
+        @properties[arg] = option[:default]
+      end
+    end
+
+    def is_not_all_requires_are_set?(arg)
+      (@reqs.keys & arg.keys) != (@reqs.keys)
+    end
+
+    def generate_error_argument_require
+      raise ArgumentError, "The property \"name\" is required for this Dash."
     end
 
     def get_props
       @props
+    end
+
+    def get_require
+      @reqs
     end
 
 =begin

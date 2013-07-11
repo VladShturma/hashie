@@ -2,15 +2,25 @@ require "spec_helper"
 
 describe Hashie::Dash do
 
- # before(:all) do
- #   @p = Person.new
- # end
-
-  it "define property" do
-    @p = Person.new
-    expect(true).to eq(true)
+  before(:all) do
+    #@pp = Person.new(:name => "Bob")
   end
 
+  it "check that property is not set" do
+    expect{p = Person.new}.to raise_error(ArgumentError, 'The property "name" is required for this Dash.')
+    #expect(@p.get_require).to eq({:name => true})
+    #expect(@p.get_props).to eq({:occupation => 'Rubyist', :name => nil, :email => nil})
+  end
+
+  it "check that property assigning" do
+    p = Person.new(:name => "Bob")
+    expect(p.name).to eq("Bob")
+  end
+
+  #it "check that property assigning 2" do
+  #  p = Person.new(:name => "Bob")
+  #  expect(p[:name]).to eq("Bob")
+  #end
 =begin
   before(:all) do
     @p = Person.new(:age => 22)
