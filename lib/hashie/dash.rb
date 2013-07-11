@@ -1,8 +1,25 @@
 
 module Hashie
   class Dash
-    include CommonMethods
+    #include CommonMethods
 
+    def initialize
+      #tmp = self.class.instance_variable_get :@properties
+      #raise "XXXXXX" << tmp.inspect
+      @props ||= {}
+      @props = self.class.instance_variable_get :@properties
+    end
+
+    def self.property(arg, option = nil)
+      @properties ||= {}
+      @properties[arg] = nil
+    end
+
+    def get_props
+      @props
+    end
+
+=begin
     @@properties = Hash.new
     @@requires = Hash.new
 
@@ -59,6 +76,6 @@ module Hashie
       end
       @@properties[name] = args.join(" ")
     end
-
+=end
   end
 end
