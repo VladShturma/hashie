@@ -3,65 +3,36 @@ require "spec_helper"
 describe Hashie::Dash do
 
   before(:all) do
-    #@pp = Person.new(:name => "Bob")
+    @p = Person.new(:name => "Bob")
   end
 
   it "check that property is not set" do
     expect{p = Person.new}.to raise_error(ArgumentError, 'The property "name" is required for this Dash.')
-    #expect(@p.get_require).to eq({:name => true})
-    #expect(@p.get_props).to eq({:occupation => 'Rubyist', :name => nil, :email => nil})
   end
 
   it "check that property assigning" do
-    p = Person.new(:name => "Bob")
-    expect(p.name).to eq("Bob")
+    expect(@p.name).to eq("Bob")
   end
 
-  #it "check that property assigning 2" do
-  #  p = Person.new(:name => "Bob")
-  #  expect(p[:name]).to eq("Bob")
-  #end
-=begin
-  before(:all) do
-    @p = Person.new(:age => 22)
+  it "check that property assigning by []" do
+    expect(@p[:name]).to eq("Bob")
   end
 
   it "checks that property is undefined" do
     expect{@p[:awesome]}.to raise_error NoMethodError
   end
 
-  it "checks that property is defined" do
-    expect(@p[:name]).to eq(nil)
-  end
-
-  it "check that property assigning" do
-    @p.email = "Bob"
-    expect(@p[:email]).to eq("Bob")
-  end
-
-  it "check that return value by key" do
-    @p.email = "a@ru.ru"
-    expect(@p.email).to eq("a@ru.ru")
-  end
-
   it "check property default value" do
     expect(@p.occupation).to eq("Rubyist")
   end
 
-  it "checks that property is set" do
-    expect(@p.age).to eq(22)
+  it "check assignment value by =" do
+    @p.email = "a@ru.ru"
+    expect(@p.email).to eq("a@ru.ru")
   end
 
   it "checks that property can't be nil" do
-    expect{@p.age = nil}.to raise_error(ArgumentError, 'The property "age" is required for this Dash.')
+    expect{@p.name = nil}.to raise_error(ArgumentError, 'The property "name" is required for this Dash.')
   end
 
-  it "checks that can't initialize without required properties" do
-    expect{x = Person.new}.to raise_error(ArgumentError, 'The property "age" is required for this Dash.')
-  end
-
-  it "checks that can't initialize without required properties 2" do
-    expect{x = Person.new(:name => "Bob")}.to raise_error(ArgumentError, 'The property "age" is required for this Dash.')
-  end
-=end
 end
