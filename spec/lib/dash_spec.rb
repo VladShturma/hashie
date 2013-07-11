@@ -35,4 +35,8 @@ describe Hashie::Dash do
     expect{@p.name = nil}.to raise_error(ArgumentError, 'The property "name" is required for this Dash.')
   end
 
+  it "checks init with unknown property" do
+    expect{p = Person.new({:name => "Bob", :first => "Bob"})}.to raise_error(ArgumentError, 'The property "name" is required for this Dash.')
+  end
+
 end

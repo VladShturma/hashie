@@ -9,7 +9,10 @@ module Hashie
       @props = self.class.instance_variable_get :@properties
       @reqs = self.class.instance_variable_get :@requires
       generate_error_argument_require if is_not_all_requires_are_set?(arg)
-      arg.each { |key, value| @props[key] = value }
+      arg.each do |key, value|
+        generate_error_argument_require unless @props.key?(key)
+        @props[key] = value
+      end
     end
 
     def self.property(arg, option = {})
