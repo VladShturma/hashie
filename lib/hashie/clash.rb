@@ -2,18 +2,23 @@ module Hashie
   class Clash < Hash
     include CommonMethods
 
+    def initialize(prev_level = nil)
+      @prev_level = prev_level
+    end
+
+    def _end!
+      @prev_level
+    end
+
     def method_missing(method_name, args = {})
       method_str = method_name.to_s
-      if method_str == "_end!"
-        @subhash = nil
-      elsif method_str[-1] == "!"
-        @subhash = get_method_name(method_str).to_sym
+
+      if method_str[-1] == "!"
+        method_name = get_method_name(method_str).to_sym
+        self[method_name] = Clash.new(self)
+        return self[method_name]
       else
-        if @subhash
-          fill_hash(@subhash, {method_name => args})
-        else
-          fill_hash(method_name, args)
-        end
+        fill_hash(method_name, args)
       end
       self
     end
