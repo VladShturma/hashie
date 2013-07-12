@@ -5,6 +5,7 @@ module Hashie
   autoload 'Mash', 'hashie/mash'
   autoload 'Dash', 'hashie/dash'
   autoload 'Trash', 'hashie/trash'
+  autoload 'Clash', 'hashie/clash'
 
   #lib_path = File.expand_path("..", __FILE__)
   #Dir["#{lib_path}/hashie/*.rb"].each do |f|
