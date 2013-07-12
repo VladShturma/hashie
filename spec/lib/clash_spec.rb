@@ -18,8 +18,6 @@ describe Hashie::Clash do
     c = Hashie::Clash.new
     c.where!
     expect(c).to eq({:where => {}})
-    #c.where!.abc('def').some!.ghi(123)#._end!.order(:created_at)
-    #expect(c).to eq({:where => {:abc => 'def', :ghi => 123}, :order => :created_at})
   end
 
   it 'check sub-hashes' do
