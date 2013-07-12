@@ -14,7 +14,7 @@ describe Hashie::Clash do
     expect(c).to eq({:where => {:abc => 'def', :hgi => 123}})
   end
 
-  it 'checks that chain into sub-hashes' do
+  it 'check empty sub-hashes' do
     c = Hashie::Clash.new
     c.where!
     expect(c).to eq({:where => {}})
@@ -22,31 +22,31 @@ describe Hashie::Clash do
     #expect(c).to eq({:where => {:abc => 'def', :ghi => 123}, :order => :created_at})
   end
 
-  it 'checks1' do
+  it 'check sub-hashes' do
     c = Hashie::Clash.new
     c.where!.abc('def')
     expect(c).to eq({:where => {:abc => 'def'}})
   end
 
-  it 'checks1' do
+  it 'check sub-hashes level 2 empty' do
     c = Hashie::Clash.new
     c.where!.abc('def').some!
     expect(c).to eq({:where => {:abc => 'def', :some => {}}})
   end
 
-  it 'checks1' do
+  it 'check sub-hashes level 2 not empty' do
     c = Hashie::Clash.new
     c.where!.abc('def').some!.ghi(123)
     expect(c).to eq({:where => {:abc => 'def', :some => {:ghi => 123}}})
   end
 
-  it 'checks1' do
+  it 'check jump to level 1' do
     c = Hashie::Clash.new
     c.where!.abc('def').some!.ghi(123)._end!.ttt(333)
     expect(c).to eq({:where => {:abc => 'def', :some => {:ghi => 123}, :ttt => 333}})
   end
 
-  it 'checks1' do
+  it 'check multi level work' do
     c = Hashie::Clash.new
     c.where!.abc('def').some!.ghi(123).aaa!.el('elem')._end!._end!.fin('finish')
     expect(c).to eq({:where => {:abc => 'def', :some => {:ghi => 123, :aaa => {:el =>"elem"}}, :fin => "finish"}})
