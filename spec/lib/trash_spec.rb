@@ -12,4 +12,11 @@ describe Hashie::Trash do
     expect(m.firstName).to eq("Bob")
   end
 
+  it "check trash lambda" do
+    res = Result.new(:id => '123', :creation_date => '2012-03-30 17:23:28')
+    #raise res.inspect
+    expect(res.id).to eq(123)
+    expect(res.alias_id).to eq(123)
+    expect(res.created_at.class).to eq(Time)
+  end
 end
